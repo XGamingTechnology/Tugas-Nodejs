@@ -11,6 +11,7 @@ app.use(express.json())
 const userRouter = require('./src/routes/user.routes')
 app.use('/api', userRouter)
 
+console.log("sequlize", userRouter)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

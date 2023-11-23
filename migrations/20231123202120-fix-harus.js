@@ -1,9 +1,12 @@
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
+'use strict';
+const { Sequelize, DataTypes } = require('sequelize');
+
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('fixes',{
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('fix-harus', {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
@@ -37,11 +40,11 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
         allowNull: true,
       },
-      createAt: {
+      createdAt: {
         type: Sequelize.DATE,
         allowNull: true,
       },
-      updateAt: {
+      updatedAt: {
         type: Sequelize.DATE,
         allowNull: true,
       },
@@ -50,11 +53,10 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
         allowNull: true,
       },
-    })
-  
+    });
   },
 
-  async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('fixes'); 
-  }
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('fix-harus');
+  },
 };
