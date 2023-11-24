@@ -15,9 +15,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   fix.init({
     id: {
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
+      allowNull:false,
+      autoIncrement:true,
       primaryKey: true,
+      type: Sequelize.INTEGER
+      // type: Sequelize.UUID,
+      // defaultValue: DataTypes.UUIDV4,
+      // primaryKey: true,
     },
     // Add other columns as needed
     fullName: {
@@ -43,21 +47,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     avatar: {
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
+      type: Sequelize.INTEGER, 
       allowNull: true,
     },
-    createAt: {
+    createdAt: {
       type: Sequelize.DATE,
       allowNull: true,
     },
-    updateAt: {
+    updatedAt: {
       type: Sequelize.DATE,
       allowNull: true,
     },
     deletedAt: {
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
+      type: Sequelize.INTEGER, 
       allowNull: true,
     },
   }, {

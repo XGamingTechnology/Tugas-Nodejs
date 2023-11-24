@@ -1,4 +1,7 @@
+const { v4: uuidv4 } = require('uuid');
 const { fix } = require('../../models')
+
+uuidv4();
 
 const getAllUser = (req, res) => {
     console.log('ini jadi apa', fix)
@@ -8,6 +11,7 @@ const getAllUser = (req, res) => {
         })
         .catch(err => {
             res.status(500).json({ message: 'internal Server Error'})
+            console.log("err", err )
 
         })
 }
