@@ -1,11 +1,11 @@
 // const { v4: uuidv4 } = require('uuid');
-const { fix } = require('../../models')
+const { User } = require('../../models')
 
 // uuidv4();
 
 const getAllUser = (req, res) => {
-    console.log('ini jadi apa', fix)
-    fix.findAll()
+    console.log('ini jadi apa', User)
+    User.findAll()
         .then(result => {
             res.json({result})
         })
