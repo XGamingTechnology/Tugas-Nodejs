@@ -19,13 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,
-      // allowNull:false,
-      // autoIncrement:true,
-      // primaryKey: true,
-      // type: Sequelize.INTEGER
-      // type: Sequelize.UUID,
-      // defaultValue: UUIDV4,
-      // primaryKey: true,
+      
     },
     // Add other columns as needed
     fullName: {

@@ -16,8 +16,25 @@ const getAllUser = (req, res) => {
         })
 }
 
+const createUser = (req, res) => {
+    const body = req.body
+    const {fullName, email, password,} = body
+    User.create({fullName, email, password,status:'Active'})
+    .then(result => {
+        res.status(201).json({message: 'berhasil'})
+    })
+    .catch(err => {
+        res.status(500).json({ message: 'internal Server Error'})
+        console.log("err", err )
+
+    })
+
+}
+
+
 module.exports = {
-    getAllUser
+    getAllUser,
+    createUser
 }
 
 // terdapat issue terkait pembacaan data ke database yang belum solvenpm
