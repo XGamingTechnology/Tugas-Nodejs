@@ -1,7 +1,7 @@
-const { v4: uuidv4 } = require('uuid');
+// const { v4: uuidv4 } = require('uuid');
 const { fix } = require('../../models')
 
-uuidv4();
+// uuidv4();
 
 const getAllUser = (req, res) => {
     console.log('ini jadi apa', fix)

@@ -15,12 +15,16 @@ module.exports = (sequelize, DataTypes) => {
   }
   fix.init({
     id: {
-      allowNull:false,
-      autoIncrement:true,
+      allowNull: false,
       primaryKey: true,
-      type: Sequelize.INTEGER
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
+      // allowNull:false,
+      // autoIncrement:true,
+      // primaryKey: true,
+      // type: Sequelize.INTEGER
       // type: Sequelize.UUID,
-      // defaultValue: DataTypes.UUIDV4,
+      // defaultValue: UUIDV4,
       // primaryKey: true,
     },
     // Add other columns as needed
