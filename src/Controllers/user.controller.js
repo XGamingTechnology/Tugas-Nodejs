@@ -1,6 +1,6 @@
 // const { v4: uuidv4 } = require('uuid');
 const { User } = require('../../models')
-
+const bcrypt = require('bcrypt')
 // uuidv4();
 
 const getAllUser = async (req, res) => {
@@ -16,7 +16,11 @@ const createUser = async (req, res) => {
      try {
          const body = req.body
          const {fullName, email, password,} = body
-         await User.create({fullName, email, password,status:'Active'})
+
+         const saltRounds = 10
+         const hashPassword = bcrypt.hashSync(password, saltRounds)
+
+         await User.create({fullName, email, password:hashPassword,status:'Active'})
             res.status(201).json({ message: 'User created'})
        } catch (error) {
         res.status(500).json ({ message: 'Internal Server Error'})
