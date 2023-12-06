@@ -24,7 +24,7 @@ const getAllUser = async (req, res) => {
             offset: (page - 1) * pageSize,
             where
         })
-        
+        console.log(where)
         const total = await User.count()
         
         res.status(200).json({data: user, total: total})
