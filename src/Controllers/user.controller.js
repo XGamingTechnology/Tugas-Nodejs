@@ -5,9 +5,14 @@ const bcrypt = require('bcrypt')
 
 const getAllUser = async (req, res) => {
     try {
-        let { page, pageSize } = req.query
+        let { page, pageSize, fullName } = req.query
         page = parseInt(page) || 1
         pageSize = parseInt(pageSize) || 10
+
+        let where = {}
+        if (fullName) {
+            where = { fullName }
+        }
 
         const user = await User.findAll({
             include: [
@@ -16,7 +21,8 @@ const getAllUser = async (req, res) => {
                 }
             ],
             limit: pageSize,
-            offset: (page - 1) * pageSize
+            offset: (page - 1) * pageSize,
+            where
         })
         
         const total = await User.count()
