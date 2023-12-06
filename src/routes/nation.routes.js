@@ -1,8 +1,8 @@
 const express = require('express')
-const router = express.router()
+const router = express.Router()
 
-const nationCrontroller = require('../Controllers/nation.controller')
+const nationController = require('../Controllers/nation.controller')
 
-router.post('nations', nationController.createNation)
+router.post('/nations', nationController.createNation)
 
 module.exports = router
