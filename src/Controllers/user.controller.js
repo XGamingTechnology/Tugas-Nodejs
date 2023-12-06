@@ -28,10 +28,32 @@ const createUser = async (req, res) => {
 
 }
 
+const updateUser = async (req, res) => {
+    try {
+        const id = req.params.id
+        const body = req.body
+        const { fullName, email, status, NationId } = body
+        const user = await User.findByPk(id)
+
+        if (!user) {
+            throw new Error('User not found')
+        }
+
+        await User.update({ fullName, email, status, NationId },{ where: { id } })
+
+        res.status(200).json({ message: 'User updated'})
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error'})
+    }
+
+
+}
+
 
 module.exports = {
     getAllUser,
-    createUser
+    createUser,
+    updateUser
 }
 
 // terdapat issue terkait pembacaan data ke database yang belum solvenpm
