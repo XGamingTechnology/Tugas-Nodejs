@@ -18,10 +18,12 @@ const options = {
       description: 'Belajar NodeJs'
     }
   },
-  apis:['./src/routes/*.js']
+  apis: ['./src/routes/*.js']
 }
 
 const swaggerSpec = swaggerJSDoc(options)
+console.log(swaggerSpec)
+console.log(swaggerUi)
 
 // import router
 const userRouter = require('./src/routes/user.routes')
@@ -30,8 +32,6 @@ const nationRouter = require('./src/routes/nation.routes')
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use('/api', userRouter)
 app.use('/api', nationRouter)
-
-
 
 
 app.listen(port, () => {
