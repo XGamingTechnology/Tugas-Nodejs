@@ -1,6 +1,7 @@
 // const { v4: uuidv4 } = require('uuid');
 const { User, Nation } = require('../../models')
 const bcrypt = require('bcrypt')
+const BuildResponse = require('../modules/buildResponse')
 // uuidv4();
 
 const getAllUser = async (req, res) => {
@@ -26,8 +27,11 @@ const getAllUser = async (req, res) => {
         })
         console.log(where)
         const total = await User.count()
+
+        // perubahan
+        const buildResponse = BuildResponse.get({data: user, total: total})
         
-        res.status(200).json({data: user, total: total})
+        res.status(200).json(buildResponse)
     } catch (error) {
         console.log(error)
         res.status(500).json ({ message: 'Internal Server Error'})
