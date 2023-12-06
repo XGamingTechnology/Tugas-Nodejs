@@ -1,11 +1,18 @@
 // const { v4: uuidv4 } = require('uuid');
-const { User } = require('../../models')
+const { User, Nation } = require('../../models')
 const bcrypt = require('bcrypt')
 // uuidv4();
 
 const getAllUser = async (req, res) => {
     try {
-        const user = await User.findAll()   
+        const user = await User.findAll({
+            include: [
+                { 
+                   model : Nation
+                }
+            
+            ]
+        })   
         res.status(200).json(user)
     } catch (error) {
         res.status(500).json ({ message: 'Internal Server Error'})
@@ -37,23 +44,25 @@ const updateUser = async (req, res) => {
 
         if (!user) {
             throw new Error('User not found')
+            // console.log(new Error)
         }
 
-        await User.update({ fullName, email, status, NationId },{ where: { id } })
+        await User.update({ fullName, email, status:'Active', NationId },{ where: { id } })
 
         res.status(200).json({ message: 'User updated'})
+        console.log(User)
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: 'Internal Server Error'})
     }
-
-
+    
 }
-
+console.log(updateUser)
 
 module.exports = {
     getAllUser,
     createUser,
     updateUser
 }
-
+console.log(updateUser)
 // terdapat issue terkait pembacaan data ke database yang belum solvenpm

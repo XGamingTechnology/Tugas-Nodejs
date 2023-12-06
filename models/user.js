@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      User.belongsTo(models.Nation)
       // define association here
     }
   }
@@ -46,6 +47,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     avatar: {
       type: Sequelize.INTEGER, 
+      allowNull: true,
+    },
+    NationId: {
+      type: Sequelize.UUID, 
       allowNull: true,
     },
     createdAt: {
