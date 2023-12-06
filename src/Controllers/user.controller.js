@@ -5,16 +5,25 @@ const bcrypt = require('bcrypt')
 
 const getAllUser = async (req, res) => {
     try {
+        let { page, pageSize } = req.query
+        page = parseInt(page) || 1
+        pageSize = parseInt(pageSize) || 10
+
         const user = await User.findAll({
             include: [
                 { 
                    model : Nation
                 }
-            
-            ]
-        })   
-        res.status(200).json(user)
+            ],
+            limit: pageSize,
+            offset: (page - 1) * pageSize
+        })
+        
+        const total = await User.count()
+        
+        res.status(200).json({data: user, total: total})
     } catch (error) {
+        console.log(error)
         res.status(500).json ({ message: 'Internal Server Error'})
     }
 }
