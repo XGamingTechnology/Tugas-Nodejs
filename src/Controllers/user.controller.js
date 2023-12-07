@@ -68,7 +68,10 @@ const updateUser = async (req, res) => {
 
         await User.update({ fullName, email, status:'Active', NationId },{ where: { id } })
 
-        res.status(200).json({ message: 'User updated'})
+        const buildResponse = BuildResponse.updated({})
+
+
+        res.status(200).json({ buildResponse })
         console.log(User)
     } catch (error) {
         console.log(error)
