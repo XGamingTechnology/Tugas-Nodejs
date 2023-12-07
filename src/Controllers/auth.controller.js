@@ -1,4 +1,4 @@
-const { user }= require('../../models')
+const { User }= require('../../models')
 const jwt = require('jsonwebtoken')
 
 const login = async (req, res) => {
@@ -6,7 +6,7 @@ const login = async (req, res) => {
       const { email, password } = req.body
 
     //   ambil data user bersangkutan
-    const User = await user.findOne ({ where: { email }, raw: true })
+    const user = await User.findOne ({ where: { email }, raw: true })
 
     if (!User) {
         throw new Error('User not found')
@@ -14,8 +14,8 @@ const login = async (req, res) => {
 
     // generate token
     const payload = {
-        role: User.role,
-        id: User.id,
+        role: user.role,
+        id: user.id,
     }
     const options = { expiresIn: '5m'}
     const secretkey = 'sagsagsagsagsagas99sagsagsagagss'
@@ -25,6 +25,7 @@ const login = async (req, res) => {
     console.log(accessToken, "token" )
 
     } catch (error) {
+        console.log("ini data eror", error)
         res.json({ message: 'Internal server error'})
 
     }

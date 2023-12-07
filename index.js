@@ -28,7 +28,7 @@ console.log(swaggerUi)
 // import router
 const userRouter = require('./src/routes/user.routes')
 const nationRouter = require('./src/routes/nation.routes')
-const authRouter = require('./src/routes/auth.routes ')
+const authRouter = require('./src/routes/auth.routes')
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use('/api', userRouter)
