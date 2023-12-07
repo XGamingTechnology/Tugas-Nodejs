@@ -26,5 +26,14 @@
     total,
     dataResponse,
   })
+
+  const created = ({ dataResponse, data, total,response}) => ({
+    code: 200,
+    message: 'Data berhasil dibuat',
+    data,
+    total,
+    response,
+    dataResponse,
+  })
   
-  module.exports = { get, updated };
+  module.exports = { get, updated, created };

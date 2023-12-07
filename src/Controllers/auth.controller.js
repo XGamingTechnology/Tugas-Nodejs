@@ -1,4 +1,5 @@
 const { User }= require('../../models')
+const BuildResponse = require('../modules/buildResponse')
 const jwt = require('jsonwebtoken')
 
 const login = async (req, res) => {
@@ -21,6 +22,11 @@ const login = async (req, res) => {
     const secretkey = 'sagsagsagsagsagas99sagsagsagagss'
     
     const accessToken = jwt.sign(payload, secretkey, options)
+
+    const response = { accessToken, user}
+    const buildResponse = BuildResponse.created({ response })
+
+    return res.status(201).json(buildResponse)
 
     console.log(accessToken, "token" )
 
