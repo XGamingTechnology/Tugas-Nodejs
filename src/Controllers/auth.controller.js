@@ -17,6 +17,8 @@ const login = async (req, res) => {
     //  check password
     bcrypt.compare(password, user.password, (err, result)=> {
         if (!err && result === true) {
+            console.log('err', err)
+            console.log(result,'result')
             // generate token
             const payload = {
                 role: user.role,
@@ -34,7 +36,7 @@ const login = async (req, res) => {
         return res.status(400).json({ message: 'email atau password salah'})
     })
     
-    console.log(accessToken, "token" )
+  
 
     } catch (error) {
         console.log("ini data eror", error)
