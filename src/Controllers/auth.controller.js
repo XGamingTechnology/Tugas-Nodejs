@@ -1,6 +1,7 @@
 const { User }= require('../../models')
 const BuildResponse = require('../modules/buildResponse')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 
 const login = async (req, res) => {
     try { 
@@ -15,28 +16,24 @@ const login = async (req, res) => {
 
     //  check password
     bcrypt.compare(password, user.password, (err, result)=> {
-        if (err) {
-            console.log('err', err)
-        } else {
-            console.log(relust)
+        if (!err && result === true) {
+            // generate token
+            const payload = {
+                role: user.role,
+                id: user.id,
+            }
+            const options = { expiresIn: '5m'}
+            const secretkey = 'sagsagsagsagsagas99sagsagsagagss'
+            
+            const accessToken = jwt.sign(payload, secretkey, options)
+        
+            const response = { accessToken, user}
+            const buildResponse = BuildResponse.created({ response })
+            return res.status(201).json(buildResponse)
         }
+        return res.status(400).json({ message: 'email atau password salah'})
     })
-
-    // generate token
-    const payload = {
-        role: user.role,
-        id: user.id,
-    }
-    const options = { expiresIn: '5m'}
-    const secretkey = 'sagsagsagsagsagas99sagsagsagagss'
     
-    const accessToken = jwt.sign(payload, secretkey, options)
-
-    const response = { accessToken, user}
-    const buildResponse = BuildResponse.created({ response })
-
-    return res.status(201).json(buildResponse)
-
     console.log(accessToken, "token" )
 
     } catch (error) {
