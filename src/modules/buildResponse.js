@@ -1,16 +1,3 @@
-// const get = ({ data, total }) => ({
-//     code: 200,
-//     message: 'Berhasil mendapatkan data',
-//     data,
-//     total,
-//   })
-
-// const updated = ({ dataResponse}) => ({
-//     code: 200,
-//     message: 'Berhasil ubah data',
-//     ...dataResponse
-//   })
-
   const get = ({ dataResponse, data, total}) => ({
     code: 200,
     message: 'Berhasil mendapatkan data',
