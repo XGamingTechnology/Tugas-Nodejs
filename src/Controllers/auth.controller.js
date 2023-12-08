@@ -13,6 +13,15 @@ const login = async (req, res) => {
         throw new Error('User not found')
     }
 
+    //  check password
+    bcrypt.compare(password, user.password, (err, result)=> {
+        if (err) {
+            console.log('err', err)
+        } else {
+            console.log(relust)
+        }
+    })
+
     // generate token
     const payload = {
         role: user.role,
