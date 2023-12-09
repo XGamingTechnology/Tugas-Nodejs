@@ -28,6 +28,8 @@ const login = async (req, res) => {
             const secretkey = 'sagsagsagsagsagas99sagsagsagagss'
             
             const accessToken = jwt.sign(payload, secretkey, options)
+
+            const refreshToken = jwt.sign(payload, secretkey, { expiresIn: '15m'})
         
             const response = { accessToken, user}
             const buildResponse = BuildResponse.created({ response })
@@ -35,6 +37,33 @@ const login = async (req, res) => {
         }
         return res.status(400).json({ message: 'email atau password salah'})
     })
+    
+    const refreshToken = (req, res) => {
+        try {
+            const { token} = req.body
+            jwt.verify(token,'sagsagsagsagsagas99sagsagsagagss', (err, decode) => {
+                if (err) {
+                    throw new Error(err.message)
+                }
+                const payload = { id: decoded.id, role: decoded.role }
+                const options = { expiresIn: '5m'}
+                const secretkey = 'sagsagsagsagsagas99sagsagsagagss'
+                
+                const accessToken = jwt.sign(payload, secretkey, options)
+
+                const newRefreshToken = jwt.sign(payload, secretkey, { expiresIn:'15m'})
+
+                const response = { accessToken, refreshToken: newRefreshToken}
+                const buildResponse = BuildResponse.created({response})
+
+                return res.status(201).json(buildResponse)
+            })
+        } catch (error) {
+
+            res.json({ message: 'Internal server eror'})
+        }
+
+    }
     
   
 
