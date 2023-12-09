@@ -3,6 +3,7 @@ const BuildResponse = require('../modules/buildResponse')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
+
 const login = async (req, res) => {
     try { 
       const { email, password } = req.body
@@ -29,19 +30,26 @@ const login = async (req, res) => {
             
             const accessToken = jwt.sign(payload, secretkey, options)
 
-            const refreshToken = jwt.sign(payload, secretkey, { expiresIn: '15m'})
+            const refeshToken = jwt.sign(payload, secretkey, { expiresIn: '15m'})
         
-            const response = { accessToken, user}
+            const response = { accessToken, user, refeshToken}
             const buildResponse = BuildResponse.created({ response })
             return res.status(201).json(buildResponse)
         }
         return res.status(400).json({ message: 'email atau password salah'})
     })
+
+    } catch (error) {
+        console.log("ini data eror", error)
+        res.json({ message: 'Internal server error'})
+
+    }
+    }
     
     const refreshToken = (req, res) => {
         try {
             const { token} = req.body
-            jwt.verify(token,'sagsagsagsagsagas99sagsagsagagss', (err, decode) => {
+            jwt.verify(token,'sagsagsagsagsagas99sagsagsagagss', (err, decoded) => {
                 if (err) {
                     throw new Error(err.message)
                 }
@@ -65,16 +73,8 @@ const login = async (req, res) => {
 
     }
     
-  
-
-    } catch (error) {
-        console.log("ini data eror", error)
-        res.json({ message: 'Internal server error'})
-
-    }
-
-}
-
+    
 module.exports ={
     login,
+    refreshToken,
 }
