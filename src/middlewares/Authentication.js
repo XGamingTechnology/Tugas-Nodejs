@@ -1,7 +1,17 @@
+const jwt = require('jsonwebtoken')
 const Authentication = (req, res, next) => {
-    console.log('Aunten dijalan')
+    const token = req.headers.auhorization
+    if (!token) {
+        return res.status(401).json({})
+    }
 
-    next()
+    jwt.verify(token.split(' ')[1], 'sagsagsagsagsagas99sagsagsagagss',(err,decoded) => {
+        if (err) {
+            throw new Error(err.message)
+        }
+        req.decoded = decoded
+        next(null)
+    })
 
 }
 
