@@ -31,10 +31,13 @@ const nationRouter = require('./src/routes/nation.routes')
 const authRouter = require('./src/routes/auth.routes')
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+
+const uploadRouter = require('./src/routes/upload.routes')
+
 app.use('/api', userRouter)
 app.use('/api', nationRouter)
 app.use('/api', authRouter)
-
+app.use('/api', uploadRouter)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

@@ -10,6 +10,7 @@ const env = process.env
 
 const login = async (req, res) => {
     try { 
+        console.log('data env', env.SECRET_KEY)
       const { email, password } = req.body
 
     //   ambil data user bersangkutan
