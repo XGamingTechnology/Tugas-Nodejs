@@ -3,6 +3,10 @@ const BuildResponse = require('../modules/buildResponse')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
+require('dotenv').config()
+
+const env = process.env
+
 
 const login = async (req, res) => {
     try { 
@@ -26,11 +30,10 @@ const login = async (req, res) => {
                 id: user.id,
             }
             const options = { expiresIn: '5m'}
-            const secretkey = 'sagsagsagsagsagas99sagsagsagagss'
-            
-            const accessToken = jwt.sign(payload, secretkey, options)
+             
+            const accessToken = jwt.sign(payload, env.SECRET_KEY, options)
 
-            const refeshToken = jwt.sign(payload, secretkey, { expiresIn: '15m'})
+            const refeshToken = jwt.sign(payload, env.SECRET_KEY, { expiresIn: '15m'})
         
             const response = { accessToken, user, refeshToken}
             const buildResponse = BuildResponse.created({ response })
@@ -49,17 +52,16 @@ const login = async (req, res) => {
     const refreshToken = (req, res) => {
         try {
             const { token} = req.body
-            jwt.verify(token,'sagsagsagsagsagas99sagsagsagagss', (err, decoded) => {
+            jwt.verify(token,env.SECRET_KEY, (err, decoded) => {
                 if (err) {
                     throw new Error(err.message)
                 }
                 const payload = { id: decoded.id, role: decoded.role }
                 const options = { expiresIn: '5m'}
-                const secretkey = 'sagsagsagsagsagas99sagsagsagagss'
-                
-                const accessToken = jwt.sign(payload, secretkey, options)
 
-                const newRefreshToken = jwt.sign(payload, secretkey, { expiresIn:'15m'})
+                const accessToken = jwt.sign(payload, env.SECRET_KEY, options)
+
+                const newRefreshToken = jwt.sign(payload, env.SECRET_KEY, { expiresIn:'15m'})
 
                 const response = { accessToken, refreshToken: newRefreshToken}
                 const buildResponse = BuildResponse.created({response})
