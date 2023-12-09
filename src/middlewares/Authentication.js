@@ -1,5 +1,7 @@
-const Authentication = () => {
+const Authentication = (req, res, next) => {
+    console.log('Aunten dijalan')
 
+    next()
 
 }
 

@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const Authentication = require('../middlewares/Authentication')
 
 const UserController = require('../Controllers/user.controller')
 
@@ -15,7 +16,7 @@ const UserController = require('../Controllers/user.controller')
  *         description: Internal Server error
  */
 
-router.get('/user', Authentication, UserController.getAllUser)
+router.get('/user', Authentication.Authentication, UserController.getAllUser)
 router.post('/user', UserController.createUser)
 
 /**
