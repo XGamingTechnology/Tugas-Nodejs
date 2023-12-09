@@ -6,6 +6,9 @@ const BuildResponse = require('../modules/buildResponse')
 
 const getAllUser = async (req, res) => {
     try {
+
+        console.log(req.decoded, 'data decoded user')
+
         let { page, pageSize, fullName } = req.query
         page = parseInt(page) || 1
         pageSize = parseInt(pageSize) || 10

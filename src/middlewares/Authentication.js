@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken')
 const Authentication = (req, res, next) => {
-    const token = req.headers.auhorization
+    const token = req.headers.authorization
+    console.log(token, 'token')
+    console.log(req, 'ini req')
     if (!token) {
         return res.status(401).json({})
     }
@@ -10,7 +12,8 @@ const Authentication = (req, res, next) => {
             throw new Error(err.message)
         }
         req.decoded = decoded
-        next(null)
+        console.log('decoded', decoded)
+        next(null,decoded)
     })
 
 }
