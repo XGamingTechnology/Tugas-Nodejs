@@ -15,7 +15,7 @@ const UserController = require('../Controllers/user.controller')
  *         description: Internal Server error
  */
 
-router.get('/user', UserController.getAllUser)
+router.get('/user', Authentication, UserController.getAllUser)
 router.post('/user', UserController.createUser)
 
 /**
