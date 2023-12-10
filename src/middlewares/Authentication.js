@@ -5,8 +5,7 @@ const env = process.env
 
 const Authentication = (req, res, next) => {
     const token = req.headers.authorization
-    console.log(token, 'token')
-    console.log(req, 'ini req')
+    
     if (!token) {
         return res.status(401).json({})
     }

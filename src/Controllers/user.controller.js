@@ -3,12 +3,15 @@ const { User, Nation } = require('../../models')
 const bcrypt = require('bcrypt')
 const BuildResponse = require('../modules/buildResponse')
 const  yup = require('yup')
+const { useValidation } = require('../middlewares/userValidation')
 
 const createUserSchema = yup.object().shape({ 
     fullName: yup.string().required('Nama lengkap harus diisi'),
     email: yup.string().email().required('Email harus disis'),
     password: yup.string().required('Password harus disisi'),
 })
+
+
 
 // uuidv4();
 
@@ -54,8 +57,9 @@ const createUser = async (req, res) => {
          const body = req.body
          const {fullName, email, password,} = body
 
-        const value = createUserSchema.validate({ fullName, email, password })         
-        console.log ('ini valueee', value)
+        const value = useValidation(createUserSchema, { fullName, email, password })
+
+        console.log (value, 'adadadadadad')
                 
          const saltRounds = 10
          const hashPassword = bcrypt.hashSync(password, saltRounds)
@@ -64,6 +68,7 @@ const createUser = async (req, res) => {
             res.status(201).json({ message: 'User created'})
        } catch (error) {
         res.status(500).json ({ message: 'Internal Server Error'})
+        console.log('ini errrorrr', error)
      }
 
 }
@@ -86,9 +91,9 @@ const updateUser = async (req, res) => {
 
 
         res.status(200).json({ buildResponse })
-        console.log(User)
+        // console.log(User)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         res.status(500).json({ message: 'Internal Server Error'})
     }
     

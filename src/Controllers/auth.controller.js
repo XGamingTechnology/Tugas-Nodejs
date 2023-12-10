@@ -23,8 +23,8 @@ const login = async (req, res) => {
     //  check password
     bcrypt.compare(password, user.password, (err, result)=> {
         if (!err && result === true) {
-            console.log('err', err)
-            console.log(result,'result')
+            // console.log('err', err)
+            // console.log(result,'result')
             // generate token
             const payload = {
                 role: user.role,
