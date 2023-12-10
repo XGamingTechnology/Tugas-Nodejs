@@ -6,5 +6,4 @@ const uploadController = require('../Controllers/upload.controller')
 
 router.post('/upload', upload.single('file'),uploadController.upload)
 
-
 module.exports = router

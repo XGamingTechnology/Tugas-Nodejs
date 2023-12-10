@@ -14,17 +14,17 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'API Documentation Belajar NodeJS',
+      title: 'API Contract Study Case Blog',
       version: '0.0.1',
-      description: 'Belajar NodeJs'
+      description: 'API Contract Study Case Blog'
     }
   },
   apis: ['./src/routes/*.js']
 }
 
 const swaggerSpec = swaggerJSDoc(options)
-console.log(swaggerSpec)
-console.log(swaggerUi)
+// console.log(swaggerSpec)
+// console.log(swaggerUi)
 
 // import router
 const userRouter = require('./src/routes/user.routes')
@@ -33,13 +33,15 @@ const authRouter = require('./src/routes/auth.routes')
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
+app.use('/v1/upload', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+
 const uploadRouter = require('./src/routes/upload.routes')
 
 app.use(express.static(path.join(__dirname, 'public/')))
-app.use('/api', userRouter)
-app.use('/api', nationRouter)
-app.use('/api', authRouter)
-app.use('/api', uploadRouter)
+app.use('/v1', userRouter)
+app.use('/v1', nationRouter)
+app.use('/v1', authRouter)
+app.use('/v1', uploadRouter)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
