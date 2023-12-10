@@ -1,6 +1,7 @@
 const express = require('express')
 const swaggerJSDoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
+const path = require('path');
 
 const app = express()
 const port = 3000
@@ -34,6 +35,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 const uploadRouter = require('./src/routes/upload.routes')
 
+app.use(express.static(path.join(__dirname, 'public/')))
 app.use('/api', userRouter)
 app.use('/api', nationRouter)
 app.use('/api', authRouter)

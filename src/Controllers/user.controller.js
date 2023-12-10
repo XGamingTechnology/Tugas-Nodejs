@@ -2,6 +2,14 @@
 const { User, Nation } = require('../../models')
 const bcrypt = require('bcrypt')
 const BuildResponse = require('../modules/buildResponse')
+const  yup = require('yup')
+
+const createUserSchema = object().shape({ 
+    fullName: yup.string().required('Nama lengkap harus diisi'),
+    email: sting().yup.email().required('Email harus disis'),
+    password: yup.string().required('Password harus disisi'),
+})
+
 // uuidv4();
 
 const getAllUser = async (req, res) => {
