@@ -54,21 +54,27 @@ const getAllUser = async (req, res) => {
 
 const createUser = async (req, res) => {
      try {
-         const body = req.body
-         const {fullName, email, password,} = body
+         const { body } = req
 
-        const value = useValidation(createUserSchema, { fullName, email, password })
+        createUserSchema.validate(body)
+        .then( async (valid) =>{
+            const { fullName, email, password } = valid   
+            const saltRounds = 10
+            const hashPassword = bcrypt.hashSync(password, saltRounds)
+   
+            await User.create({fullName, email, password:hashPassword,status:'Active'})
+               res.status(201).json({ message: 'User created'})
+        })
+        .catch((error) => {
+            console.log('erorr', error)
+            res.status(400).json({ message: "Password harus diisi"})
+        })
 
-        console.log (value, 'adadadadadad')
+        // console.log (value, 'adadadadadad')
                 
-         const saltRounds = 10
-         const hashPassword = bcrypt.hashSync(password, saltRounds)
-
-         await User.create({fullName, email, password:hashPassword,status:'Active'})
-            res.status(201).json({ message: 'User created'})
        } catch (error) {
         res.status(500).json ({ message: 'Internal Server Error'})
-        console.log('ini errrorrr', error)
+        // console.log('ini errrorrr', error)
      }
 
 }
