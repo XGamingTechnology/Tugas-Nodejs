@@ -11,6 +11,19 @@ const storage = multer.diskStorage({
     },
 })
 
+// validasi jenis file 
+const fileFilter = (Preq, file, cb) => {
+    const allowdTypes = /jpeg|jpg|png/
+
+    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase())
+    const mimetype = allowedTypes.test(file.mimetype)
+
+    if (extname && mimetype) {
+        return cb(null, true)
+    }
+    cb('Erro: Hanya diperbolehkan mengunggah file gambar (jpeg/jpg/png)')
+}
+
 const upload = multer({ storage: storage })
 
 module.exports ={ upload }
