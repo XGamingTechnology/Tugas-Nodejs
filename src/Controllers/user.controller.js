@@ -4,9 +4,9 @@ const bcrypt = require('bcrypt')
 const BuildResponse = require('../modules/buildResponse')
 const  yup = require('yup')
 
-const createUserSchema = object().shape({ 
+const createUserSchema = yup.object().shape({ 
     fullName: yup.string().required('Nama lengkap harus diisi'),
-    email: sting().yup.email().required('Email harus disis'),
+    email: yup.string().email().required('Email harus disis'),
     password: yup.string().required('Password harus disisi'),
 })
 
@@ -54,6 +54,9 @@ const createUser = async (req, res) => {
          const body = req.body
          const {fullName, email, password,} = body
 
+        const value = createUserSchema.validate({ fullName, email, password })         
+        console.log ('ini valueee', value)
+                
          const saltRounds = 10
          const hashPassword = bcrypt.hashSync(password, saltRounds)
 
