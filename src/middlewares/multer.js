@@ -24,6 +24,6 @@ const fileFilter = (Preq, file, cb) => {
     cb('Erro: Hanya diperbolehkan mengunggah file gambar (jpeg/jpg/png)')
 }
 
-const upload = multer({ storage: storage })
+const upload = multer({ storage, fileFilter})
 
 module.exports ={ upload }
